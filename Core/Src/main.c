@@ -47,7 +47,9 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart5;
 
 osThreadId readSensorDataHandle;
+osThreadId sleepTaskHandle;
 /* USER CODE BEGIN PV */
+uint8_t reading_sensor_data = 0;
 
 /* USER CODE END PV */
 
@@ -58,10 +60,20 @@ static void MX_I2C2_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART5_UART_Init(void);
 void StartReadSensorData(void const * argument);
+void StartSleepTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == GPIO_PIN_12)
+    {
+    	__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_12);
+    	HAL_PWR_DisableSleepOnExit();
+    	reading_sensor_data = 1;
+    }
+}
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -124,6 +136,10 @@ int main(void)
   /* definition and creation of readSensorData */
   osThreadDef(readSensorData, StartReadSensorData, osPriorityRealtime, 0, 128);
   readSensorDataHandle = osThreadCreate(osThread(readSensorData), NULL);
+
+  /* definition and creation of sleepTask */
+  osThreadDef(sleepTask, StartSleepTask, osPriorityBelowNormal, 0, 128);
+  sleepTaskHandle = osThreadCreate(osThread(sleepTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -330,6 +346,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_15_IRQn, 3, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -354,6 +374,23 @@ void StartReadSensorData(void const * argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_StartSleepTask */
+/**
+* @brief Function implementing the sleepTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartSleepTask */
+void StartSleepTask(void const * argument)
+{
+  /* USER CODE BEGIN StartSleepTask */
+  /* Infinite loop */
+	if (reading_sensor_data == 0) {
+		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+	}
+  /* USER CODE END StartSleepTask */
 }
 
 /**
