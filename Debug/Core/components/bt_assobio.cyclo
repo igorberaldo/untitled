@@ -1,0 +1,12 @@
+bt_assobio.c:22:17:bt_assobio_init	3
+bt_assobio.c:42:17:bt_assobio_denit	1
+bt_assobio.c:52:17:bt_assobio_enable	1
+bt_assobio.c:58:17:bt_assobio_disable	1
+bt_assobio.c:65:17:bt_assobio_default_parameters	2
+bt_assobio.c:116:17:bt_assobio_pair_mode	1
+bt_assobio.c:126:17:bt_assobio_parameters_transmit	1
+bt_assobio.c:136:17:bt_assobio_parameters_recieve	2
+bt_assobio.c:154:16:bt_assobio_check_safe_area	1
+bt_assobio.c:168:17:bt_assobio_send_cmd	1
+bt_assobio.c:177:17:bt_send_uart	2
+bt_assobio.c:206:6:bt_receive_uart	4

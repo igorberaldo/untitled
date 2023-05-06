@@ -1,0 +1,12 @@
+../Core/components/bt_assobio.c:22:17:bt_assobio_init	16	static
+../Core/components/bt_assobio.c:42:17:bt_assobio_denit	8	static
+../Core/components/bt_assobio.c:52:17:bt_assobio_enable	8	static
+../Core/components/bt_assobio.c:58:17:bt_assobio_disable	8	static
+../Core/components/bt_assobio.c:65:17:bt_assobio_default_parameters	16	static
+../Core/components/bt_assobio.c:116:17:bt_assobio_pair_mode	8	static
+../Core/components/bt_assobio.c:126:17:bt_assobio_parameters_transmit	8	static
+../Core/components/bt_assobio.c:136:17:bt_assobio_parameters_recieve	16	static
+../Core/components/bt_assobio.c:154:16:bt_assobio_check_safe_area	16	static
+../Core/components/bt_assobio.c:168:17:bt_assobio_send_cmd	16	static
+../Core/components/bt_assobio.c:177:17:bt_send_uart	72	dynamic
+../Core/components/bt_assobio.c:206:6:bt_receive_uart	64	dynamic

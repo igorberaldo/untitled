@@ -1,2 +1,2 @@
-system_stm32l0xx.c:153:6:SystemInit	1
-system_stm32l0xx.c:199:6:SystemCoreClockUpdate	8
+system_stm32l0xx.c:154:6:SystemInit	1
+system_stm32l0xx.c:200:6:SystemCoreClockUpdate	8
